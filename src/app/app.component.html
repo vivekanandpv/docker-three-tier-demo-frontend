@@ -1,0 +1,25 @@
+<div class="p-5">
+  <h3>Customers</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (customer of customers | async; track $index) {
+      <tr>
+        <td>{{ customer.customerId }}</td>
+        <td>{{ customer.firstName }}</td>
+        <td>{{ customer.lastName }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.city }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
