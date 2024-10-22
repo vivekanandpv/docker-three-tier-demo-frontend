@@ -1,0 +1,10 @@
+1. build all images (postgres-database, sb-backend, ng-frontend)
+
+2. docker network create my-net
+3. docker container run -d -p 5432:5432 --name database --network my-net -e POSTGRES_PASSWORD=postgres postgres-database
+4. docker container run -d -p 9001:8080 --network my-net --name backend -e DATABASE_HOSTNAME=database sb-backend
+
+# please note below the http://backend:8080 because it is the container to container communication. 9001 is exposed on the host.
+5. docker container run -d -p 9002:80 -e API_URL="http://backend:8080" --name frontend --network my-net ng-frontend
+
+6. Open the browser: http://localhost:9002
