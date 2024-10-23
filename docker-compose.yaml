@@ -1,0 +1,35 @@
+version: "3"
+networks:
+  my-net:
+    driver: bridge
+
+services:
+  database:
+    image: postgres-database
+    environment:
+      POSTGRES_PASSWORD: postgres
+    container_name: database
+    networks:
+      - my-net
+    ports:
+      - 5432:5432
+
+  backend:
+    image: sb-backend
+    environment:
+      DATABASE_HOSTNAME: database
+    container_name: backend
+    networks:
+      - my-net
+    ports:
+      - 9001:8080
+
+  frontend:
+    image: ng-frontend
+    environment:
+      API_URL: http://backend:8080
+    container_name: frontend
+    networks:
+      - my-net
+    ports:
+      - 9002:80
