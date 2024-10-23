@@ -1,4 +1,12 @@
 1. build all images (postgres-database, sb-backend, ng-frontend)
+    a. Open the database project and docker image build -t postgres-database .
+    b. Open the backend project in IntelliJ and in the terminal:
+        mvn package
+        docker image build -t sb-backend .
+    c. Open the frontend project in the VS Code and in the terminal:
+        npm i
+        npm run build
+        docker image build -t ng-frontend .
 
 2. docker network create my-net
 3. docker container run -d -p 5432:5432 --name database --network my-net -e POSTGRES_PASSWORD=postgres postgres-database
@@ -8,3 +16,12 @@
 5. docker container run -d -p 9002:80 -e API_URL="http://backend:8080" --name frontend --network my-net ng-frontend
 
 6. Open the browser: http://localhost:9002
+
+######
+
+For the docker compose approach, make sure the previous containers and network (created above) are removed (if created)
+After you have created the images as in step 1, cd into this directory
+
+A. To deploy: docker compose up
+B. Open the browser: http://localhost:9002
+C. To remove the deployment: docker compose down
